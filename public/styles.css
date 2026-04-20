@@ -37,7 +37,10 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
     letter-spacing: 0.02em;
@@ -236,8 +239,14 @@ nav.scrolled {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    direction: rtl;
     position: relative;
     overflow: hidden;
+}
+
+.hero-content,
+.hero-image {
+    direction: ltr;
 }
 
 .hero-content {
@@ -307,7 +316,7 @@ nav.scrolled {
 .hero-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0;
     animation: fadeIn 1.2s ease forwards 0.4s;
 }
@@ -541,7 +550,8 @@ nav.scrolled {
 }
 
 .listing-badge.sold {
-    background: var(--charcoal);
+    background: #dc2626;
+    /* red */
     color: var(--white);
 }
 
@@ -670,8 +680,14 @@ nav.scrolled {
 .testimonial-nav {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
     margin-top: 3rem;
+}
+
+.testimonial-dots {
+    display: flex;
+    gap: 1rem;
 }
 
 .testimonial-dot {
@@ -686,6 +702,29 @@ nav.scrolled {
 
 .testimonial-dot.active {
     background: var(--gold);
+}
+
+.testimonial-arrow {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--charcoal);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.testimonial-arrow:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.testimonial-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: var(--charcoal);
 }
 
 /* ========================================
@@ -992,11 +1031,13 @@ nav.scrolled {
 .contact-map {
     margin-top: 4rem;
     height: 400px;
-    background: var(--cream-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
+    overflow: hidden;
+}
+
+.contact-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /* ========================================
@@ -1045,6 +1086,318 @@ footer {
 }
 
 /* ========================================
+   LISTING DETAIL PAGE
+   ======================================== */
+.listing-hero {
+    padding-top: 80px;
+}
+
+.listing-hero-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5rem;
+    max-height: 70vh;
+}
+
+.listing-hero-main {
+    height: 70vh;
+    overflow: hidden;
+}
+
+.listing-hero-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listing-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.listing-hero-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.listing-hero-grid img:hover {
+    opacity: 0.9;
+}
+
+.listing-content {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 4rem;
+    padding: 4rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.listing-header {
+    margin-bottom: 2rem;
+}
+
+.listing-status {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.listing-status.sold {
+    background: var(--charcoal);
+    color: var(--white);
+}
+
+.listing-title {
+    font-size: 3rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+}
+
+.listing-location {
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.listing-price-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--cream-dark);
+    border-bottom: 1px solid var(--cream-dark);
+    margin-bottom: 2rem;
+}
+
+.listing-price-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--charcoal);
+}
+
+.listing-price-details {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.listing-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--cream);
+    margin-bottom: 3rem;
+}
+
+.listing-feature {
+    text-align: center;
+}
+
+.listing-feature-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--charcoal);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.listing-feature-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.listing-description {
+    margin-bottom: 3rem;
+}
+
+.listing-description h2,
+.listing-details-grid h2,
+.listing-amenities h2 {
+    font-size: 1.8rem;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+}
+
+.listing-description p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.listing-details-grid {
+    margin-bottom: 3rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--cream);
+}
+
+.detail-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.detail-value {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--charcoal);
+}
+
+.listing-amenities {
+    margin-bottom: 3rem;
+}
+
+.amenities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.amenity-tag {
+    padding: 0.6rem 1.2rem;
+    background: var(--cream);
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    border: 1px solid var(--cream-dark);
+}
+
+/* Listing Sidebar */
+.listing-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.agent-card {
+    background: var(--white);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.agent-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+}
+
+.agent-name {
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+}
+
+.agent-title {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+}
+
+.agent-brokerage {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.agent-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.agent-phone,
+.agent-email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    transition: color 0.3s ease;
+}
+
+.agent-phone:hover,
+.agent-email:hover {
+    color: var(--gold);
+}
+
+.agent-phone svg,
+.agent-email svg {
+    width: 18px;
+    height: 18px;
+}
+
+.inquiry-form {
+    background: var(--cream);
+    padding: 2rem;
+}
+
+.inquiry-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.inquiry-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.inquiry-form .form-textarea {
+    min-height: 100px;
+}
+
+.back-to-listings {
+    padding: 2rem 6rem;
+    background: var(--cream);
+}
+
+.back-to-listings a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gold);
+    transition: color 0.3s ease;
+}
+
+.back-to-listings a:hover {
+    color: var(--gold-dark);
+}
+
+/* ========================================
    ANIMATIONS
    ======================================== */
 @keyframes fadeUp {
@@ -1052,6 +1405,7 @@ footer {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1059,18 +1413,37 @@ footer {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* ========================================
    RESPONSIVE STYLES
    ======================================== */
 @media (max-width: 1200px) {
-    .hero-title { font-size: 3.5rem; }
-    .hero-content { padding: 6rem 4rem; }
-    nav, .about, .listings, .testimonials, .services, .contact, footer,
-    .page-header, .listings-page, .contact-page {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-content {
+        padding: 6rem 4rem;
+    }
+
+    nav,
+    .about,
+    .listings,
+    .testimonials,
+    .services,
+    .contact,
+    footer,
+    .page-header,
+    .listings-page,
+    .contact-page {
         padding-left: 4rem;
         padding-right: 4rem;
     }
@@ -1081,34 +1454,72 @@ footer {
         grid-template-columns: 1fr;
         min-height: auto;
     }
+
     .hero-content {
         padding: 10rem 3rem 4rem;
         order: 2;
     }
+
     .hero-image {
         height: 60vh;
         order: 1;
     }
-    .hero-decoration { display: none; }
+
+    .hero-decoration {
+        display: none;
+    }
+
     .stats-bar {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
-    .stat-item:nth-child(2)::after { display: none; }
+
+    .stat-item:nth-child(2)::after {
+        display: none;
+    }
+
     .about {
         grid-template-columns: 1fr;
         gap: 3rem;
     }
+
     .listings-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .services-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+
     .contact {
         grid-template-columns: 1fr;
         gap: 3rem;
+    }
+
+    .listing-hero-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .listing-hero-main {
+        height: 50vh;
+    }
+
+    .listing-hero-grid {
+        height: 200px;
+    }
+
+    .listing-content {
+        grid-template-columns: 1fr;
+        padding: 3rem;
+    }
+
+    .listing-sidebar {
+        position: static;
+    }
+
+    .listing-features {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1116,42 +1527,118 @@ footer {
     nav {
         padding: 1rem 1.5rem;
     }
+
     .nav-links {
         display: none;
     }
+
     .mobile-menu-toggle {
         display: flex;
     }
-    .hero-title { font-size: 2.5rem; }
-    .hero-content { padding: 8rem 1.5rem 3rem; }
-    .hero-subtitle { font-size: 1rem; }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-content {
+        padding: 8rem 1.5rem 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
     .hero-buttons {
         flex-direction: column;
     }
-    nav, .about, .listings, .testimonials, .services, .contact, footer,
-    .page-header, .listings-page, .contact-page {
+
+    nav,
+    .about,
+    .listings,
+    .testimonials,
+    .services,
+    .contact,
+    footer,
+    .page-header,
+    .listings-page,
+    .contact-page {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
+
     .stats-bar {
         padding: 3rem 1.5rem;
         grid-template-columns: 1fr;
     }
-    .stat-item::after { display: none; }
-    .stat-number { font-size: 2.5rem; }
+
+    .stat-item::after {
+        display: none;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
     .listings-grid {
         grid-template-columns: 1fr;
     }
-    .section-title { font-size: 2.2rem; }
-    .testimonial-text { font-size: 1.2rem; }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .testimonial-text {
+        font-size: 1.2rem;
+    }
+
     footer {
         flex-direction: column;
         gap: 2rem;
         text-align: center;
     }
-    .footer-links { flex-wrap: wrap; justify-content: center; }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .listings-filters {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .listing-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .listing-title {
+        font-size: 2rem;
+    }
+
+    .listing-price-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .listing-price-details {
+        gap: 1rem;
+    }
+
+    .listing-features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .listing-feature-value {
+        font-size: 2rem;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .back-to-listings {
+        padding: 1.5rem;
     }
 }
