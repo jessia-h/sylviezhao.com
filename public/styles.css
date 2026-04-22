@@ -393,10 +393,6 @@ nav.scrolled {
    ======================================== */
 .about {
     padding: 8rem 6rem;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 6rem;
-    align-items: center;
 }
 
 .about-image {
@@ -442,6 +438,143 @@ nav.scrolled {
     font-style: italic;
     color: var(--gold);
     margin-top: 2rem;
+}
+
+/* About section full width */
+.about-content.full-width {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Language toggle buttons */
+.language-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.lang-btn {
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+    background: var(--gold);
+    color: var(--charcoal);
+}
+
+/* About headings */
+.about-heading {
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    margin: 2.5rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gold);
+}
+
+/* Achievements grid */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.achievement-column h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.achievement-list {
+    list-style: none;
+    padding: 0;
+}
+
+.achievement-list li {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.achievement-list li strong {
+    color: var(--charcoal);
+}
+
+/* Expertise grid */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.expertise-item {
+    background: var(--cream-dark);
+    padding: 1.5rem;
+}
+
+.expertise-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--charcoal);
+    margin-bottom: 0.75rem;
+}
+
+.expertise-item p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Services list */
+.services-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.services-list li {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.services-list li::before {
+    content: '•';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ========================================
@@ -513,6 +646,9 @@ nav.scrolled {
     overflow: hidden;
     position: relative;
     transition: transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .listing-card:hover {
@@ -529,6 +665,7 @@ nav.scrolled {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: transform 0.6s ease;
 }
 
@@ -557,6 +694,7 @@ nav.scrolled {
 
 .listing-info {
     padding: 1.5rem;
+    flex: 1;
 }
 
 .listing-price {
@@ -1640,5 +1778,70 @@ footer {
 
     .back-to-listings {
         padding: 1.5rem;
+    }
+}
+
+/* Scrolling carousel for sold listings */
+.listings-carousel {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.listings-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.listings-carousel::-webkit-scrollbar-track {
+    background: var(--charcoal-light);
+    border-radius: 4px;
+}
+
+.listings-carousel::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+}
+
+/* 
+.listings-carousel .listing-card {
+    min-width: 350px;
+    max-width: 350px;
+    flex-shrink: 0;
+    background: var(--charcoal-light);
+}
+
+@media (max-width: 992px) {
+    .listings-carousel .listing-card {
+        min-width: 300px;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .listings-carousel .listing-card {
+        min-width: 280px;
+        max-width: 280px;
+    }
+} */
+
+.listings-carousel .listing-card {
+    min-width: calc(33.333% - 1.33rem);
+    flex-shrink: 0;
+    background: var(--charcoal-light);
+}
+
+@media (max-width: 992px) {
+    .listings-carousel .listing-card {
+        min-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .listings-carousel .listing-card {
+        min-width: 100%;
     }
 }

@@ -130,7 +130,8 @@ ${message}`
 
 // Listing tabs (for home page featured listings)
 const tabButtons = document.querySelectorAll('.tab-btn');
-const homeListingCards = document.querySelectorAll('.listings .listing-card');
+const homeListingCards = document.querySelectorAll('.listings-grid > .listing-card');
+const soldCarousel = document.getElementById('sold-carousel');
 
 tabButtons.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -139,6 +140,7 @@ tabButtons.forEach(btn => {
 
         const filter = this.textContent.toLowerCase().trim();
 
+        // Hide/show individual cards
         homeListingCards.forEach(card => {
             const badge = card.querySelector('.listing-badge');
             const badgeText = badge ? badge.textContent.toLowerCase().trim() : '';
@@ -149,12 +151,39 @@ tabButtons.forEach(btn => {
                 showCard = (badgeText === 'residential');
             } else if (filter === 'commercial') {
                 showCard = (badgeText === 'commercial');
-            } else if (filter === 'recently sold') {
-                showCard = (badgeText === 'sold');
+            } else if (filter === 'business') {
+                showCard = (badgeText === 'business');
             }
 
             card.style.display = showCard ? '' : 'none';
         });
+
+        // Handle sold carousel separately
+        if (soldCarousel) {
+            soldCarousel.style.display = (filter === 'recently sold') ? 'flex' : 'none';
+        }
+    });
+});
+
+// Language toggle for about section
+const langButtons = document.querySelectorAll('.lang-btn');
+const aboutEn = document.querySelector('.about-text-en');
+const aboutZh = document.querySelector('.about-text-zh');
+
+langButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+        langButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const lang = this.getAttribute('data-lang');
+
+        if (lang === 'en') {
+            aboutEn.style.display = '';
+            aboutZh.style.display = 'none';
+        } else {
+            aboutEn.style.display = 'none';
+            aboutZh.style.display = '';
+        }
     });
 });
 
@@ -186,13 +215,15 @@ filterButtons.forEach(btn => {
                 showCard = badgeText === 'residential';
             } else if (filter === 'commercial') {
                 showCard = badgeText === 'commercial';
+            } else if (filter === 'business') {
+                showCard = badgeText === 'business';
             } else if (filter === 'sold') {
                 showCard = badgeText === 'sold';
             }
 
             // Show or hide the card
             if (showCard) {
-                card.style.display = 'block';
+                card.style.display = '';
                 visibleCount++;
             } else {
                 card.style.display = 'none';
@@ -215,3 +246,35 @@ if (mobileToggle && navLinks) {
         navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
     });
 }
+
+// Hide non-residential listings on page load
+document.addEventListener('DOMContentLoaded', function () {
+    const homeListingCards = document.querySelectorAll('.listings-grid > .listing-card');
+    const soldCarousel = document.getElementById('sold-carousel');
+
+    homeListingCards.forEach(card => {
+        const badge = card.querySelector('.listing-badge');
+        const badgeText = badge ? badge.textContent.toLowerCase().trim() : '';
+
+        if (badgeText === 'residential') {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    if (soldCarousel) {
+        soldCarousel.style.display = 'none';
+    }
+});
+
+// Show all listings on listings page load
+document.addEventListener('DOMContentLoaded', function () {
+    const listingCards = document.querySelectorAll('.listings-page .listing-card');
+
+    if (listingCards.length > 0) {
+        listingCards.forEach(card => {
+            card.style.display = '';
+        });
+    }
+});
