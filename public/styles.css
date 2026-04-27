@@ -577,6 +577,41 @@ nav.scrolled {
     }
 }
 
+/* Expertise list */
+.expertise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expertise-list li {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Contact box */
+.contact-box {
+    background: var(--gold);
+    color: var(--charcoal);
+    padding: 2rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.contact-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.contact-box p {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.8;
+}
+
 /* ========================================
    LISTINGS SECTION
    ======================================== */
