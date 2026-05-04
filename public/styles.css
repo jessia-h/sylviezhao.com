@@ -440,6 +440,50 @@ nav.scrolled {
     margin-top: 2rem;
 }
 
+/* Video thumbnail link */
+.video-thumbnail {
+    display: block;
+    position: relative;
+    margin: 1.5rem 0 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    transition: brightness 0.2s ease;
+}
+
+.video-thumbnail:hover img {
+    filter: brightness(0.85);
+}
+
+.video-thumbnail .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.8rem;
+    padding-left: 5px;
+    pointer-events: none;
+    transition: background 0.2s ease;
+}
+
+.video-thumbnail:hover .play-btn {
+    background: rgba(196, 160, 82, 0.85);
+}
+
 /* About section full width */
 .about-content.full-width {
     max-width: 1000px;
